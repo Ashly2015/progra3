@@ -7,28 +7,9 @@ public class planilla {
         int opc = 0;
         int opsalir = 0;
         String[][] Dtempleado = new String[20][2];
-        float[][]valores=new float[20][13];
+        float[][]valores=new float[20][19];
+        float bonificaciones = (float) 154.50;
 
-
-        float[] sueldoOrd = new float[100];
-        float[] sueldobase = new float[100];
-        float[] sueldodiario = new float[100];
-        float[] sueldoextraord = new float[100];
-        int[] diaslab = new int[100];
-        int[] horasextras = new int[100];
-        double bonificaciones = 154.5;
-        float[] comisiones = new float[100];
-        float[] otros = new float[100];
-        float[] totaldev = new float[100];
-        float[] subtotal = new float[100];
-        float[] septimo = new float[100];
-        float[] igss = new float[100];
-        float[] isr = new float[100];
-        float[] anticipo = new float[100];
-        float[] descjudiciales = new float[100];
-        float[] otrosdescuentos = new float[100];
-        float[] totaldesc = new float[100];
-        float[] totalliquido = new float[100];
 
         Scanner leer = new Scanner(System.in);
 
@@ -44,24 +25,98 @@ public class planilla {
 
                     do {
                         System.out.println("----------------------------------------------------");
+                        System.out.println("");
+                        Dtempleado[cont][0] = leer.nextLine();
                         System.out.println("¿Cual es tu nombre?");
                         Dtempleado[cont][0] = leer.nextLine();
                         System.out.println("¿Cual es tu puesto?");
                         Dtempleado[cont][1] =leer.nextLine();
 
                         System.out.println("¿Cuantos dias laboro?");
-                        Dtempleado[cont][0] = leer.nextLine();
+                        valores[cont][0] = Float.parseFloat(leer.nextLine());
                         System.out.println("¿Cuantas horas extras hizo?");
-                        Dtempleado[cont][1] = leer.nextLine();
+                        valores[cont][1] = Float.parseFloat(leer.nextLine());
                         System.out.println("¿Cual es su sueldo base?");
-                        Dtempleado[cont][2] = leer.nextLine();
+                        valores[cont][2] = Float.parseFloat(leer.nextLine());
                         System.out.println("¿Cuanto fueron de comisiones?");
-                        Dtempleado[cont][3] = leer.nextLine();
+                        valores[cont][3] = Float.parseFloat(leer.nextLine());
                         System.out.println("¿Otro sueldo?");
-                        Dtempleado[cont][4] = leer.nextLine();
+                        valores[cont][4] = Float.parseFloat(leer.nextLine());
+                        valores[cont][5] = valores[cont][2] / 30;
+                        valores[cont][6] = valores[cont][5] * valores[cont][0];
+                        valores[cont][7] = (float) (valores[cont][5] * 1.5 * valores[cont][1]);
+                        System.out.println("¿Falto algun dia en la semana?");
+                        System.out.println("1. No");
+                        System.out.println("2. Si");
+                        op = leer.nextInt();
+                        switch (op) {
+
+                            case 1:
+                                valores[cont][8] = 4 * valores[cont][5];
+                                valores[cont][9] = valores[cont][7] + valores[cont][6] + valores[cont][8] +valores[cont][3] + valores[cont][4];
+                                break;
+                            case 2:
+                                System.out.println("¿Cuantos dias falto en las 4 semanas?");
+                                valores[cont][8] = (float) ((4 - leer.nextDouble()) * valores[cont][5]);
+
+                                valores[cont][9] = valores[cont][7] + valores[cont][6] + valores[cont][8] + valores[cont][3] + valores[cont][4];
+                                break;
+
+                        }
+                        valores[cont][10]=bonificaciones;
+
+
+                        valores[cont][11] = (float) (valores[cont][9] + bonificaciones);
+                        valores[cont][12] = (float) (valores[cont][9] * 0.0483);
+
+                        if (valores[cont][9] > 6000 & valores[cont][9] <7500) {
+                            valores[cont][13] = (float) (valores[cont][9] * 0.05);
+                        } else if (valores[cont][9] > 7500 & valores[cont][9] <9000){
+                            valores[cont][13] = (float) (valores[cont][9] * 0.06);
+                        } else if (valores[cont][9] > 9000) {
+                            valores[cont][13] = (float) (valores[cont][9] * 0.09);
+                        }else {
+                            valores[cont][13] = 0;
+                        }
+                        System.out.println("Ingrese monto de Anticipo");
+                        valores[cont][14] = leer.nextFloat();
+                        System.out.println("Ingrese monto descuentos judiciales");
+                        valores[cont][15] = leer.nextFloat();
+                        System.out.println("Ingrese otros descuentos");
+                        valores[cont][16]= leer.nextFloat();
+
+                        valores[cont][17] = valores[cont][12] +valores[cont][13] + valores[cont][14] + valores[cont][15] + valores[cont][16];
+
+                       valores[cont][18] = valores[cont][11] - valores[cont][17];
+
+                        System.out.println("----------------------------------------------------");
+                        cont++;
+                        System.out.println("¿Desea ingresar otro empleado?");
+                        System.out.println("1. Si");
+                        System.out.println("2. NO");
+                        opsalir = leer.nextInt();
+                        System.out.println("----------------------------------------------------");
+
 
 
                     }  while (opsalir != 2);
+                    break;
+                case 2:
+                    System.out.println("NOMBRE"+"    "+    "PUESTO" +"    "+"DIAS LABORADOS"+"    "+"HORAS EXTRAS"+"    "+"SUELDO BASE"+"       "+"COMISIONES"+"         "+    "OTROS"+"     "+"       "+"SUELDO_DIARIO"  +"    "+"SUELDO_ORDINARIO"+"    " +"SUELDO_EXTRAORDINARIO"+"    "+"SEPTIMO"+"              "+"SUBTOTAL"+"             "+"BONIFICACIONES"    +"    "+  "TOTAL_DEVENGADO"+"            "+       "IGSS"  +"               "+          "ISR"  +"                 "+   "ANTICIPOS"  +"    "+  "DESCUENTO_JUDICIAL"  +"    "+      "OTROS_DESCUENTOS"   +"    "+      "TOTAL_DESCUENTOS"     +"    "+     "TOTAL_LIQUIDO");
+                    for (int i = 0; i < cont; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            System.out.print(Dtempleado[i][j]+"     ");
+
+                        }
+                    }
+                    for (int i = 0; i < cont; i++) {
+                    for (int j = 0; j < 19; j++) {
+                        System.out.print(valores[i][j]+"             ");
+
+                    }
+                }
+
+                    break;
             }
 
 
