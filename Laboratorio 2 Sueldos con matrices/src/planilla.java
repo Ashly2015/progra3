@@ -108,13 +108,15 @@ public class planilla {
                             System.out.print(Dtempleado[i][j]+"     ");
 
                         }
-                    }
-                    for (int i = 0; i < cont; i++) {
-                    for (int j = 0; j < 19; j++) {
-                        System.out.print(valores[i][j]+"             ");
+                        for (int j = 0; j < 19; j++) {
+                            System.out.print(valores[i][j]+"             ");
 
+                        }
+                        System.out.println("");
                     }
-                }
+
+
+
 
                     break;
             }
